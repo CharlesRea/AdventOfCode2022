@@ -15,6 +15,13 @@
     <None Include="03\3_1.fsx" />
     <None Include="03\3_2.fsx" />
     <Content Include="03\input.txt" />
+    <None Include="04\4_1.fsx" />
+    <None Include="04\4_2.fsx" />
+    <Content Include="04\input.txt" />
+    <None Include="05\5_1.fsx" />
+    <None Include="05\5_2.fsx" />
+    <Content Include="05\input.txt" />
+    <None Include="Common.fsx" />
   </ItemGroup>
 
 </Project>
