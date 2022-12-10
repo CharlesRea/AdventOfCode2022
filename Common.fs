@@ -2,14 +2,15 @@ module Common
 
 open System
 open System.Text.RegularExpressions
+open FSharpx.Collections
 
 let tryParseWith (tryParseFunc: string -> bool * _) = tryParseFunc >> function
     | true, v    -> Some v
     | false, _   -> None
 
-let parseInt = tryParseWith System.Int32.TryParse
-let parseInt64 = tryParseWith System.Int64.TryParse
-let parseDouble = tryParseWith System.Double.TryParse
+let parseInt = tryParseWith Int32.TryParse
+let parseInt64 = tryParseWith Int64.TryParse
+let parseDouble = tryParseWith Double.TryParse
 
 let (|Int|_|) = parseInt
 let (|Int64|_|) = parseInt64
@@ -47,6 +48,15 @@ let allTriples (xs: 'x seq) (ys: 'y seq) (zs: 'z seq): ('x * 'y * 'z) seq =
 
 let allQuadruples (ws: 'w seq) (xs: 'x seq) (ys: 'y seq) (zs: 'z seq): ('w * 'x * 'y * 'z) seq =
     zs |> Seq.allPairs ys |> Seq.allPairs xs |> Seq.allPairs ws |> Seq.map (fun (w, (x, (y, z))) -> (w, x, y, z))
+
+let contiguousSubseqs (length: int) (xs: 'x seq): ('x seq) seq =
+  let mutable buffer = Queue.ofSeq (Seq.take length xs)
+  seq {
+      yield buffer |> Queue.toSeq
+      for x in Seq.skip length xs do
+          buffer <- buffer |> Queue.conj x |> Queue.tail
+          yield buffer |> Queue.toSeq
+  }
 
 let values (map: Map<'K, 'V>): 'V seq =
     map |> Map.toSeq |> Seq.map snd

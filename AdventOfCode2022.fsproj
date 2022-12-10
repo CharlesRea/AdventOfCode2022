@@ -6,22 +6,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="01\1_1.fsx" />
-    <None Include="01\1_2.fsx" />
-    <Content Include="01\1_input.txt" />
-    <None Include="02\2_1.fsx" />
-    <None Include="02\2_2.fsx" />
-    <Content Include="02\2_input.txt" />
-    <None Include="03\3_1.fsx" />
-    <None Include="03\3_2.fsx" />
+    <Compile Include="Solver.fs" />
+    <Compile Include="Common.fs" />
+    <Compile Include="DayTemplate.fs" />
+    <Compile Include="01\1_1.fs" />
+    <Content Include="01\input.txt" />
+    <Compile Include="02\2.fs" />
+    <Content Include="02\input.txt" />
+    <Compile Include="03\3.fs" />
     <Content Include="03\input.txt" />
-    <None Include="04\4_1.fsx" />
-    <None Include="04\4_2.fsx" />
+    <Compile Include="04\4.fs" />
     <Content Include="04\input.txt" />
-    <None Include="05\5_1.fsx" />
-    <None Include="05\5_2.fsx" />
+    <Compile Include="05\5.fs" />
     <Content Include="05\input.txt" />
-    <None Include="Common.fsx" />
+    <Compile Include="06\6.fs" />
+    <Content Include="06\input.txt" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Argu" Version="6.1.1" />
+    <PackageReference Include="FSharpPlus" Version="1.3.2" />
+    <PackageReference Include="FSharpx.Collections" Version="3.1.0" />
   </ItemGroup>
 
 </Project>

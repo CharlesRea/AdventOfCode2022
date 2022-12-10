@@ -1,5 +1,4 @@
-#load "../Common.fsx"
-#r @"nuget: FSharpPlus"
+module Day5
 
 open System
 open System.IO
@@ -18,10 +17,23 @@ type ImmutableStack<'T> =
 
     member s.Push x = Stack(x, s)
 
+    member s.PushMany (xs: 'T list) =
+        match xs with
+        | head :: tail -> (s.Push head).PushMany tail
+        | [] -> s
+
     member s.Pop() =
       match s with
       | Empty -> failwith "Underflow"
       | Stack(t,remainder) -> (t, remainder)
+
+    member s.PopMany (count: int): 'T list * ImmutableStack<'T> =
+        match count with
+        | 0 -> List.Empty, s
+        | count ->
+            let (popped, remainder) = s.Pop()
+            let remainderPopped, finalRemainder = remainder.PopMany(count - 1)
+            List.append (List.singleton popped) remainderPopped, finalRemainder
 
     member s.Peek() =
       match s with
@@ -81,7 +93,7 @@ let parseInstruction (instruction: string): Instruction =
           Destination = Int32.Parse destination - 1; }
     | _ -> failwith $"Invalid instruction {instruction}"
 
-let rec executeInstruction (stacks: ImmutableStack<string> array) (instruction: Instruction): (ImmutableStack<string> array) =
+let rec executeInstructionPartOne (stacks: ImmutableStack<string> array) (instruction: Instruction): (ImmutableStack<string> array) =
     match instruction.NumberOfCrates with
     | 0 -> stacks
     | numberOfCrates ->
@@ -93,24 +105,39 @@ let rec executeInstruction (stacks: ImmutableStack<string> array) (instruction: 
             |> Common.replaceArrayElement instruction.Source newSource
             |> Common.replaceArrayElement instruction.Destination newDestination
 
-        executeInstruction newStacks {instruction with  NumberOfCrates = numberOfCrates - 1 }
+        executeInstructionPartOne newStacks {instruction with  NumberOfCrates = numberOfCrates - 1 }
 
-let input = File.ReadAllText("./input.txt") |> String.split [ "\n\n" ] |> Seq.toArray
+let executeInstructionPartTwo (stacks: ImmutableStack<string> array) (instruction: Instruction): (ImmutableStack<string> array) =
+    printf $"Running instruction {instruction}\n\n"
+
+    let (crates, newSource) = stacks[instruction.Source].PopMany instruction.NumberOfCrates
+    let newDestination = stacks[instruction.Destination].PushMany (List.rev crates)
+    stacks
+        |> Common.replaceArrayElement instruction.Source newSource
+        |> Common.replaceArrayElement instruction.Destination newDestination
+
+let input = File.ReadAllText("./05/input.txt") |> String.split [ "\n\n" ] |> Seq.toArray
 let crateDefinitions = input.[0] |> String.split ["\n"] |> Seq.toArray
 let stacks = parseStacks (crateDefinitions[0..crateDefinitions.Length - 2])
 let instructions = input.[1] |> String.split ["\n"] |> Seq.map parseInstruction
 
 for stack in stacks do
-    printf $"Stack: %A{stack}\n\n"
+    printf $"Initial stack: %A{stack}\n\n"
 
-let finalStacks = instructions |> Seq.fold executeInstruction stacks
+let execute executeInstruction () =
+    let finalStacks = instructions |> Seq.fold executeInstruction stacks
 
-for stack in finalStacks do
-    printf $"Final stack: %A{stack}\n\n"
+    for stack in finalStacks do
+        printf $"Final stack: %A{stack}\n\n"
 
-let result =
-    finalStacks
-    |> Seq.map (fun stack -> stack.Peek())
-    |> String.concat ""
+    let result =
+        finalStacks
+        |> Seq.map (fun stack -> stack.Peek())
+        |> String.concat ""
 
-printf $"{result}"
+    result
+
+let solve = {
+    PartOne = execute executeInstructionPartOne;
+    PartTwo = execute executeInstructionPartTwo
+}
