@@ -1,7 +1,7 @@
 module Day6
 
-open System
 open System.IO
+
 let part1 () =
     File.ReadAllText("./06//input.txt")
     |> Common.contiguousSubseqs 4
@@ -16,4 +16,4 @@ let part2 () =
     |> Seq.findIndex ((=) 14)
     |> (+) 14
 
-let solve = { PartOne = part1; PartTwo = part2; }
+let solve = { PartOne = part1; PartTwo = part2 }

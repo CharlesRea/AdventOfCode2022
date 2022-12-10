@@ -3,8 +3,16 @@ module Day2
 open System.IO
 open FSharpPlus
 
-type Shape = Rock | Paper | Scissors
-type Outcome = Loss | Draw | Win
+type Shape =
+    | Rock
+    | Paper
+    | Scissors
+
+type Outcome =
+    | Loss
+    | Draw
+    | Win
+
 type Round = Shape * Shape
 
 let scoreShape =
@@ -46,8 +54,8 @@ module Part1 =
         | _ -> None
 
     let parseInputLine line =
-        match line |> String.split [" "] |> Seq.toList with
-        | [Opponent opponent; Player player] -> (opponent, player)
+        match line |> String.split [ " " ] |> Seq.toList with
+        | [ Opponent opponent; Player player ] -> (opponent, player)
         | x -> failwith $"Invalid input {x}"
 
     let result () =
@@ -84,8 +92,8 @@ module Part2 =
         | _ -> None
 
     let parseInputLine line =
-        match line |> String.split [" "] |> Seq.toList with
-        | [Opponent opponent; Outcome outcome] -> (opponent, outcome)
+        match line |> String.split [ " " ] |> Seq.toList with
+        | [ Opponent opponent; Outcome outcome ] -> (opponent, outcome)
         | x -> failwith $"Invalid input {x}"
 
     let result () =
@@ -93,4 +101,6 @@ module Part2 =
         |> Seq.map parseInputLine
         |> Seq.sumBy scoreRound
 
-let solve = { PartOne = Part1.result; PartTwo = Part2.result }
+let solve =
+    { PartOne = Part1.result
+      PartTwo = Part2.result }

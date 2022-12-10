@@ -36,20 +36,20 @@ let main argv =
 
     let print (solver: Solver<'one, 'two>) =
         match part with
-        | Part.One -> printf $"{solver.PartOne ()}\n"
-        | Part.Two -> printf $"{solver.PartTwo ()}\n"
+        | Part.One -> printf $"{solver.PartOne()}\n"
+        | Part.Two -> printf $"{solver.PartTwo()}\n"
         | Part.All ->
-            printf $"Part one: {solver.PartOne ()}\n\n"
-            printf $"Part two: {solver.PartTwo ()}\n"
+            printf $"Part one: {solver.PartOne()}\n\n"
+            printf $"Part two: {solver.PartTwo()}\n"
         | _ -> failwith "invalid part"
 
     match day with
-        | 1 -> print Day1.solve
-        | 2 -> print Day2.solve
-        | 3 -> print Day3.solve
-        | 4 -> print Day4.solve
-        | 5 -> print Day5.solve
-        | 6 -> print Day6.solve
-        | _ -> failwith "Invalid day"
+    | 1 -> print Day1.solve
+    | 2 -> print Day2.solve
+    | 3 -> print Day3.solve
+    | 4 -> print Day4.solve
+    | 5 -> print Day5.solve
+    | 6 -> print Day6.solve
+    | _ -> failwith "Invalid day"
 
     0
