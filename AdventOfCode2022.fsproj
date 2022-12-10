@@ -23,6 +23,8 @@
         <Content Include="06\input.txt" />
         <Compile Include="07\7.fs" />
         <Content Include="07\input.txt" />
+        <Compile Include="08\8.fs" />
+        <Content Include="08\input.txt" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
