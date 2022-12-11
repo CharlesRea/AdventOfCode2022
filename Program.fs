@@ -39,8 +39,8 @@ let main argv =
         | Part.One -> printf $"{solver.PartOne()}\n"
         | Part.Two -> printf $"{solver.PartTwo()}\n"
         | Part.All ->
-            printf $"Part one: {solver.PartOne()}\n\n"
-            printf $"Part two: {solver.PartTwo()}\n"
+            printf $"Part one:\n {solver.PartOne()}\n\n"
+            printf $"Part two:\n {solver.PartTwo()}\n"
         | _ -> failwith "invalid part"
 
     match day with
@@ -53,6 +53,7 @@ let main argv =
     | 7 -> print Day7.solve
     | 8 -> print Day8.solve
     | 9 -> print Day9.solve
+    | 10 -> print Day10.solve
     | _ -> failwith "Invalid day"
 
     0
