@@ -60,17 +60,6 @@ let allQuadruples (ws: 'w seq) (xs: 'x seq) (ys: 'y seq) (zs: 'z seq) : ('w * 'x
     |> Seq.allPairs ws
     |> Seq.map (fun (w, (x, (y, z))) -> (w, x, y, z))
 
-let contiguousSubseqs (length: int) (xs: 'x seq) : ('x seq) seq =
-    let mutable buffer = Queue.ofSeq (Seq.take length xs)
-
-    seq {
-        yield buffer |> Queue.toSeq
-
-        for x in Seq.skip length xs do
-            buffer <- buffer |> Queue.conj x |> Queue.tail
-            yield buffer |> Queue.toSeq
-    }
-
 let values (map: Map<'K, 'V>) : 'V seq = map |> Map.toSeq |> Seq.map snd
 
 let joinCharsToString (chars: char seq) : string =

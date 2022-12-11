@@ -65,28 +65,17 @@ module Part2 =
 
     let result () =
         let initialState =
-            {| Head = (0, 0)
-               Tail = Seq.init 9 (fun _ -> (0, 0))
+            {| Knots = Seq.replicate 10 (0, 0)
                Visited = Set.singleton (0, 0) |}
 
         let finalState =
             (initialState, commands)
             ||> Seq.fold (fun state command ->
-                let head = (add state.Head command)
+                let head = (add (Seq.head state.Knots) command)
+                let knots = (head, Seq.tail state.Knots) ||> Seq.scan moveKnot |> Seq.toList
 
-                let mutable visited = head
-
-                let tail = List.ofSeq (seq {
-                    let mutable previousKnot = head
-                    for knot in state.Tail do
-                        previousKnot <- moveKnot previousKnot knot
-                        visited <- previousKnot
-                        yield previousKnot
-                })
-
-                {| Head = head
-                   Tail = tail
-                   Visited = state.Visited |> Set.add visited |})
+                {| Knots = knots
+                   Visited = state.Visited |> Set.add (Seq.last knots) |})
 
         finalState.Visited |> Set.count
 
