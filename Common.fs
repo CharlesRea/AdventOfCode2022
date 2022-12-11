@@ -1,6 +1,7 @@
 module Common
 
 open System
+open System.Numerics
 open System.Text.RegularExpressions
 open FSharpx.Collections
 
@@ -12,10 +13,12 @@ let tryParseWith (tryParseFunc: string -> bool * _) =
 
 let parseInt = tryParseWith Int32.TryParse
 let parseInt64 = tryParseWith Int64.TryParse
+let parseBigInt = tryParseWith BigInteger.TryParse
 let parseDouble = tryParseWith Double.TryParse
 
 let (|Int|_|) = parseInt
 let (|Int64|_|) = parseInt64
+let (|BigInteger|_|) = parseBigInt
 let (|Double|_|) = parseDouble
 
 let (|ParseRegex|_|) regex str =
