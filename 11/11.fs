@@ -1,7 +1,6 @@
 module Day11
 
 open System.IO
-open System.Numerics
 open FSharpPlus
 open Common
 open System
@@ -26,9 +25,12 @@ type Monkey =
       Test: Test }
 
     member this.AddItem(item: int64) : Monkey =
-        { this with Items = List.append this.Items [item] }
+        { this with Items = List.append this.Items [ item ] }
 
-    member this.MarkItemsInspected() : Monkey = { this with ItemsInspected = this.ItemsInspected + int64 this.Items.Length; Items = List.empty }
+    member this.MarkItemsInspected() : Monkey =
+        { this with
+            ItemsInspected = this.ItemsInspected + int64 this.Items.Length
+            Items = List.empty }
 
 let parseStartingItems =
     function
@@ -96,6 +98,7 @@ let monkeys =
 let printMonkeys monkeys =
     for monkey in monkeys do
         printf $"Monkey inspected {monkey.ItemsInspected}. Holding:  %A{monkey.Items}\n"
+
     printf "\n\n"
 
 type MonkeyResult = { Item: int64; ThrowTo: int }
@@ -123,27 +126,31 @@ let runRound (worryAfterInspection: Monkey -> int64 -> int64) (monkeys: Monkey a
             monkeys
             |> Array.updateAt result.ThrowTo (monkeys[ result.ThrowTo ].AddItem result.Item)))
 
-let monkeyBusiness (monkeys: Monkey array): int64 =
+let monkeyBusiness (monkeys: Monkey array) : int64 =
     monkeys
-        |> Seq.map (fun m -> int64 m.ItemsInspected)
-        |> Seq.sortDescending
-        |> Seq.take 2
-        |> Seq.reduce (*)
+    |> Seq.map (fun m -> int64 m.ItemsInspected)
+    |> Seq.sortDescending
+    |> Seq.take 2
+    |> Seq.reduce (*)
 
 module Part1 =
     let result () =
         let worryAfterInspection _ x = x / 3L
-        let finalState = (monkeys, seq { 0..19 }) ||> Seq.fold (runRound worryAfterInspection)
+
+        let finalState =
+            (monkeys, seq { 0..19 }) ||> Seq.fold (runRound worryAfterInspection)
 
         finalState |> monkeyBusiness
 
 module Part2 =
     let result () =
-        let commonMultiple = monkeys |> Seq.map (fun m -> m.Test.DivisibleBy) |> Seq.reduce (*)
-        printf $"COMMON MULTIPLE {commonMultiple}\n\n"
-        let worryAfterInspection monkey x =
-            x % commonMultiple
-        let finalState = (monkeys, seq { 0..10000 - 1 }) ||> Seq.fold (runRound worryAfterInspection)
+        let commonMultiple =
+            monkeys |> Seq.map (fun m -> m.Test.DivisibleBy) |> Seq.reduce (*)
+
+        let worryAfterInspection _ x = x % commonMultiple
+
+        let finalState =
+            (monkeys, seq { 0 .. 10000 - 1 }) ||> Seq.fold (runRound worryAfterInspection)
 
         printMonkeys finalState
 

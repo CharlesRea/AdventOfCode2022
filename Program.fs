@@ -55,6 +55,7 @@ let main argv =
     | 9 -> print Day9.solve
     | 10 -> print Day10.solve
     | 11 -> print Day11.solve
+    | 12 -> print Day12.solve
     | _ -> failwith "Invalid day"
 
     0
