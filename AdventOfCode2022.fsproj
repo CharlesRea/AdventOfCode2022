@@ -6,40 +6,43 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Solver.fs"/>
-        <Compile Include="Common.fs"/>
-        <Compile Include="DayTemplate.fs"/>
-        <Compile Include="01\1.fs"/>
-        <Content Include="01\input.txt"/>
-        <Compile Include="02\2.fs"/>
-        <Content Include="02\input.txt"/>
-        <Compile Include="03\3.fs"/>
-        <Content Include="03\input.txt"/>
-        <Compile Include="04\4.fs"/>
-        <Content Include="04\input.txt"/>
-        <Compile Include="05\5.fs"/>
-        <Content Include="05\input.txt"/>
-        <Compile Include="06\6.fs"/>
-        <Content Include="06\input.txt"/>
-        <Compile Include="07\7.fs"/>
-        <Content Include="07\input.txt"/>
-        <Compile Include="08\8.fs"/>
-        <Content Include="08\input.txt"/>
-        <Compile Include="09\9.fs"/>
-        <Content Include="09\input.txt"/>
-        <Compile Include="10\10.fs"/>
-        <Content Include="10\input.txt"/>
-        <Compile Include="11\11.fs"/>
-        <Content Include="11\input.txt"/>
-        <Compile Include="12\12.fs"/>
-        <Content Include="12\input.txt"/>
-        <Compile Include="Program.fs"/>
+        <Compile Include="Solver.fs" />
+        <Compile Include="Common.fs" />
+        <Compile Include="DayTemplate.fs" />
+        <Compile Include="01\1.fs" />
+        <Content Include="01\input.txt" />
+        <Compile Include="02\2.fs" />
+        <Content Include="02\input.txt" />
+        <Compile Include="03\3.fs" />
+        <Content Include="03\input.txt" />
+        <Compile Include="04\4.fs" />
+        <Content Include="04\input.txt" />
+        <Compile Include="05\5.fs" />
+        <Content Include="05\input.txt" />
+        <Compile Include="06\6.fs" />
+        <Content Include="06\input.txt" />
+        <Compile Include="07\7.fs" />
+        <Content Include="07\input.txt" />
+        <Compile Include="08\8.fs" />
+        <Content Include="08\input.txt" />
+        <Compile Include="09\9.fs" />
+        <Content Include="09\input.txt" />
+        <Compile Include="10\10.fs" />
+        <Content Include="10\input.txt" />
+        <Compile Include="11\11.fs" />
+        <Content Include="11\input.txt" />
+        <Compile Include="12\12.fs" />
+        <Content Include="12\input.txt" />
+        <Compile Include="13\13.fs" />
+        <Content Include="13\input.txt" />
+        <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Argu" Version="6.1.1"/>
-        <PackageReference Include="FSharpPlus" Version="1.3.2"/>
-        <PackageReference Include="FSharpx.Collections" Version="3.1.0"/>
+        <PackageReference Include="Argu" Version="6.1.1" />
+        <PackageReference Include="FParsec" Version="1.1.1" />
+        <PackageReference Include="FSharpPlus" Version="1.3.2" />
+        <PackageReference Include="FSharpx.Collections" Version="3.1.0" />
     </ItemGroup>
 
 </Project>
