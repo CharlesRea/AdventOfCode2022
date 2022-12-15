@@ -35,6 +35,8 @@
         <Content Include="12\input.txt" />
         <Compile Include="13\13.fs" />
         <Content Include="13\input.txt" />
+        <Compile Include="14\14.fs" />
+        <Content Include="14\input.txt" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
